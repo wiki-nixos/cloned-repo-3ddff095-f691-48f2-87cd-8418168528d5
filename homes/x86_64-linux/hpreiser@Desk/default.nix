@@ -1,21 +1,53 @@
 # All my desktop-specific user configuration.
-args @ {
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  mode,
-  system,
-  ...
-}: {
+{
+    # Snowfall Lib provides a customized `lib` instance with access to your flake's library
+    # as well as the libraries available from your flake's inputs.
+    lib,
+    # An instance of `pkgs` with your overlays and packages applied is also available.
+    pkgs,
+    # You also have access to your flake's inputs.
+    inputs,
+
+    # Additional metadata is provided by Snowfall Lib.
+    home, # The home architecture for this host (eg. `x86_64-linux`).
+    target, # The Snowfall Lib target for this home (eg. `x86_64-home`).
+    format, # A normalized name for the home target (eg. `home`).
+    virtual, # A boolean to determine whether this home is a virtual target using nixos-generators.
+    host, # The host name for this home.
+
+    # All other arguments come from the home home.
+    config,
+    ...
+}: if (true) then {
+  nixpkgs.config = {
+      # Disable if you don't want unfree packages
+      allowUnfree = true;
+      # Workaround for https://github.com/nix-community/home-manager/issues/2942
+      allowUnfreePredicate = _: true;
+    };
+    home.packages = [pkgs.obsidian];
+    home.stateVersion = "23.11"; } else {
   # Make autostart symlinks
   imports = [
-    ./alacritty.nix
-    ./desktop-autostart.nix
-    ./mail.nix
-    ./plasma-config.nix
+    #./alacritty.nix
+    #./desktop-autostart.nix
+    #./mail.nix
+    #./plasma-config.nix
   ];
+
+  home = rec {
+    username = "hpreiser";
+    homeDirectory = "/home/${username}";
+  };
+
+  # Enable home-manager and git
+  programs.home-manager.enable = true;
+
+  # Nicely reload system units when changing configs
+  # systemd.user.startServices = "sd-switch";
+
+  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+  home.stateVersion = "23.11";
 
   # Make fonts from font packages available
   fonts.fontconfig.enable = true;

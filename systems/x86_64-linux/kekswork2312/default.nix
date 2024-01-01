@@ -16,7 +16,7 @@ in {
     # outputs.nixosModules.example
 
     # Or modules from other flakes (such as nixos-hardware):
-    inputs.hardware.nixosModules.framework-12th-gen-intel
+    inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
 
     # You can also split up your configuration and import pieces of it here:
     # ./users.nix
@@ -199,7 +199,7 @@ in {
   programs.partition-manager.enable = true;
 
   # Use syncthing
-  services.syncthing = import ../common/syncthing.nix {
+  services.syncthing = import ./syncthing.nix {
     inherit username;
     userHome = "/home/${username}";
   };
