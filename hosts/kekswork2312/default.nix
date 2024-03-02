@@ -72,11 +72,11 @@ in {
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager = {
-    defaultSession = "plasmawayland";
+    defaultSession = "plasma";
     sddm.enable = true;
     sddm.wayland.enable = false;
   };
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.desktopManager.plasma6.enable = true;
 
   # Enable fingerprints
   services.fprintd.enable = true;

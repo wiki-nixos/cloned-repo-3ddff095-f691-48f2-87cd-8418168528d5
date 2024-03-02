@@ -5,10 +5,10 @@
     # Nixpkgs
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.follows = "nixpkgs-stable";
+    nixpkgs.follows = "nixpkgs-unstable";
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Plasma manager
@@ -29,7 +29,7 @@
     nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
 
     # NixVim distro for neovim
-    nixvim.url = "github:nix-community/nixvim/nixos-23.11";
+    nixvim.url = "github:nix-community/nixvim/main";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     # Doesn't work: nixvim.inputs.pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     # see: https://github.com/msteen/nix-flake-override
